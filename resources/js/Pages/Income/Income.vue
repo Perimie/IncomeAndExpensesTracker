@@ -1,0 +1,113 @@
+
+
+<template>
+<DefaultLayout>
+    <Head title="Income Page"/>
+    <header class="bg-white shadow-sm">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900">Welcome to your Income Page! {{ $page.props.auth.user.name }}</h1>
+        </div>
+      </header>
+      <main>
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+              <!-- Button for income -->
+              <div class="flex justify-end mb-4">
+                <Link :href="route('addIncome')" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700" @click="open = true">Add Income</Link>
+              </div>
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Source
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Description
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Amount
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                        v-for="(income, index) in incomes"
+                        :key="index">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{income.date}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{income.source}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{income.description}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{income.amount}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <Link :href="route('editIncome', income.id)" class="font-medium text-green-600 dark:text-blue-500 hover:underline mr-5">Edit</Link>
+                                <button @click="deleteIncome(income.id)" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </main>
+</DefaultLayout>
+</template>
+
+<script setup>
+import { Head, Link,  } from '@inertiajs/vue3'; 
+import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import { router } from '@inertiajs/vue3';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
+import Swal from 'sweetalert2';
+
+
+defineProps({
+incomes: {
+    type: Object,
+}});
+
+toastr.options = {
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "positionClass": "toast-top-right",
+  "closeButton": true,
+  "progressBar": true,
+};
+
+const deleteIncome = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won’t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.delete(route('deleteIncome', id), {
+                onSuccess: () => {
+                    toastr.success('Income record updated successfully!');
+                },
+                onError: (error) => {
+                    toastr.error('Something went wrong. Please try again.');
+                },
+            });
+        }
+    });
+};
+</script>
