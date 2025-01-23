@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Services\Expenses\Controller\ExpensesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Services\Income\Controller\IncomeController;
@@ -39,7 +39,21 @@ Route::delete('/deleteIncome/{id}', [IncomeController::class, 'destroy'])->middl
 
 //expenses route
 
+Route::get('/expenses',[ExpensesController::class, 'index'])->middleware(['auth', 'verified'])->name('expenses');
 
+
+Route::get('/addExpenses', function () {
+    return Inertia::render('Expenses/addExpenses');
+})->middleware(['auth', 'verified'])->name('addExpenses');
+
+Route::post('/saveExpenses', [ExpensesController::class, 'create'])->middleware(['auth', 'verified'])->name('saveExpenses');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/editExpenses/{id}/edit', [ExpensesController::class, 'edit'])->name('editExpenses');
+    Route::put('/editExpenses/{id}', [ExpensesController::class, 'update'])->name('updateExpenses');
+});
+
+Route::delete('/deleteExpense/{id}', [ExpensesController::class, 'destroy'])->middleware(['auth', 'verified'])->name('deleteExpense');
 
 //end of expences route
 Route::middleware('auth')->group(function () {

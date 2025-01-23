@@ -23,13 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Vite::prefetch(concurrency: 3);
 
-        Inertia::share([
-            'flash' => function () {
-                return [
-                    'success' => session('success'),
-                    'error' => session('error'),
-                ];
-            },
-        ]);
+
     }
 }

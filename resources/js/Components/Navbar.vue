@@ -10,8 +10,8 @@
   const navigation = [
     { name: 'Dashboard', href: route('dashboard'), current: false },
     { name: 'Income', href: route('index'), current: false },
-    { name: 'Expenses', href: '#', current: false },
-    { name: 'Revenue', href: '#', current: false },
+    { name: 'Expenses', href: route('expenses'), current: false },
+  
   ]
 
   const userNavigation = [

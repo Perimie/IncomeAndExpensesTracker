@@ -19,10 +19,10 @@ class IncomeRepo
        
 
        $validateIncome = $request->validate([
-            "date"=> "required",
-            "source"=> "required|min:3|max:25",
-            "description"=> "required",
-            'amount' =>"required|integer",
+            "date"=> "required|date",
+            "source"=> "required|string|min:3|max:255",
+            "description"=> "required|string|min:3|max:255",
+            'amount' =>"required|numeric",
         ]);
 
 
