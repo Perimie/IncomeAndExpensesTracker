@@ -8,7 +8,7 @@ use App\Services\Income\Controller\IncomeController;
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
-});
+})->middleware('guest');
 
 
 Route::get('/dashboard', function () {
