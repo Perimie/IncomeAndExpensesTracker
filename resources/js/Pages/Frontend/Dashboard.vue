@@ -1,8 +1,3 @@
-<script setup>
-import { Head } from '@inertiajs/vue3';
-import DefaultLayout from '@/Layouts/DefaultLayout.vue';
-  </script>
-
 <template>
 
 <DefaultLayout>
@@ -21,5 +16,9 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
     </DefaultLayout>
     
   </template>
+  <script setup>
+  import { Head } from '@inertiajs/vue3';
+  import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+    </script>
   
   

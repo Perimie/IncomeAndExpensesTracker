@@ -20,10 +20,16 @@ class IncomeController extends Controller
 
     public function index(Request $request)
     {
-        $incomes= $this->incomeRepo->index($request);
-
-        return Inertia::render('Income/Income', ['incomes' => $incomes]);
+        $incomes = $this->incomeRepo->index($request, 5);
+        $totalIncome = $this->incomeRepo->getTotalAmount();
+    
+        return Inertia::render('Income/Income', [
+            'incomes' => $incomes,
+            'totalIncome' => $totalIncome,
+        ]);
     }
+    
+
 
     public function create(Request $request)
     {

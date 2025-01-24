@@ -7,10 +7,23 @@ use Illuminate\Http\Request;
 class ExpensesRepo 
 {
 
-    public function index()
+    public function index(Request $request, $perPage = 5)
     {
-        
-        return Expenses::orderBy('created_at', 'desc')->get();
+        return Expenses::query()
+            ->when($request->dateOfExpenses, function ($query, $dateOfExpenses) {
+                $query->whereDate('dateOfExpenses', $dateOfExpenses);
+            })
+            ->when($request->sourceOfExpenses, function ($query, $sourceOfExpenses) {
+                $query->where('sourceOfExpenses', 'like', "%{$sourceOfExpenses}%");
+            })
+            ->when($request->amountOfExpenses, function ($query, $amountOfExpenses) {
+                $query->where('amountOfExpenses', $amountOfExpenses);
+            })
+            ->paginate($perPage);
+    }
+    public function getTotalAmount()
+    {
+        return Expenses::sum('amountOfExpenses'); 
     }   
   
     public function create(Request $request)

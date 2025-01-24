@@ -8,11 +8,27 @@ use Illuminate\Http\Request;
 class IncomeRepo 
 {
 
-    public function index()
+    public function index(Request $request, $perPage = 5)
     {
-        
-        return Income::orderBy('created_at', 'desc')->get();
-    }   
+        return Income::query()
+            ->when($request->date, function ($query, $date) {
+                $query->whereDate('date', $date);
+            })
+            ->when($request->source, function ($query, $source) {
+                $query->where('source', 'like', "%{$source}%");
+            })
+            ->when($request->amount, function ($query, $amount) {
+                $query->where('amount', $amount);
+            })
+            ->paginate($perPage);
+    }
+
+    
+    public function getTotalAmount()
+    {
+        return Income::sum('amount'); 
+    }
+
   
     public function create(Request $request)
     {

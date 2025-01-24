@@ -20,9 +20,11 @@ class ExpensesController extends Controller
 
     public function index(Request $request)
     {
-        $expenses= $this->expensesRepo->index($request);
+        $expenses= $this->expensesRepo->index($request, 5);
+        $totalExpenses = $this->expensesRepo->getTotalAmount();
 
-        return Inertia::render('Expenses/Expenses', ['expenses' => $expenses]);
+        return Inertia::render('Expenses/Expenses', ['expenses' => $expenses,
+        'totalExpenses' => $totalExpenses,]);
     }
 
     public function create(Request $request)
