@@ -5,15 +5,16 @@ use App\Services\Expenses\Controller\ExpensesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Services\Income\Controller\IncomeController;
+use App\Services\Dashboard\Controller\DashboardController;
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login');
 })->middleware('guest');
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Frontend/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 //Income Route
 
