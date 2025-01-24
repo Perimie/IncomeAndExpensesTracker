@@ -18,7 +18,7 @@
           <div class="max-w-sm w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
             <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
               <dl>
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Revenue</dt>
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Total Revenue</dt>
                 <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">₱{{ $page.props.revenue  }}</dd>
               </dl>
               <div>
@@ -31,11 +31,11 @@
 
             <div class="grid grid-cols-2 py-3">
               <dl>
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Income</dt>
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Total Income</dt>
                 <dd class="leading-none text-xl font-bold text-green-500 dark:text-green-400">₱{{ $page.props.income }}</dd>
               </dl>
               <dl>
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Expense</dt>
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Total Expense</dt>
                 <dd class="leading-none text-xl font-bold text-red-600 dark:text-red-500">-₱{{ $page.props.expenses }}</dd>
               </dl>
             </div>

@@ -20,6 +20,7 @@ class IncomeRepo
             ->when($request->amount, function ($query, $amount) {
                 $query->where('amount', $amount);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }
 

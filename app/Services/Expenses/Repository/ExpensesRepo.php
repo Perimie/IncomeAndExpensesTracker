@@ -19,6 +19,7 @@ class ExpensesRepo
             ->when($request->amountOfExpenses, function ($query, $amountOfExpenses) {
                 $query->where('amountOfExpenses', $amountOfExpenses);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
     }
     public function getTotalAmount()

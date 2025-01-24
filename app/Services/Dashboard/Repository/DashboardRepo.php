@@ -17,7 +17,7 @@ class DashboardRepo
 
         $revenue = $income - $expenses;
         
-        $profitRate = $income > 0 ? ($revenue / $income) * 100 : 0;
+        $profitRate = $income > 0 ? round(($revenue / $income) * 100, 2) : 0;
 
         return([
             'income'=> $income,
